@@ -1,6 +1,7 @@
 package com.leon.romequizapp;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -34,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         //////////////////////////////------------------
 
         TextView textViewQuestion = findViewById(R.id.textViewQuestion);
+        Button button1 = findViewById(R.id.buttonOption1);
+        Button button2 = findViewById(R.id.buttonOption2);
+        Button button3 = findViewById(R.id.buttonOption3);
+
+
 
         new Thread(() -> {
 
@@ -48,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     textViewQuestion.setText(question.getQuestion());
+                    button1.setText(question.getOptions().get(0));
+                    button2.setText(question.getOptions().get(1));
+                    button3.setText(question.getOptions().get(2));
+
+
                 });
 
             } catch (IOException e) {
