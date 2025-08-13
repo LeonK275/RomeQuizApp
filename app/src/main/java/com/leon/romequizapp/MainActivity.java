@@ -1,6 +1,9 @@
 package com.leon.romequizapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.CollapsibleActionView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
@@ -34,10 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         //////////////////////////////------------------
 
+        loadQuestion();
+
+        //////////////////////////////------------------
+
+    }
+
+    public void loadQuestion() {
         TextView textViewQuestion = findViewById(R.id.textViewQuestion);
         Button button1 = findViewById(R.id.buttonOption1);
         Button button2 = findViewById(R.id.buttonOption2);
         Button button3 = findViewById(R.id.buttonOption3);
+        Button nextQuestion = findViewById(R.id.buttonNextQuestion);
 
 
 
@@ -52,12 +63,56 @@ public class MainActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 QuizQuestion question = gson.fromJson(json,QuizQuestion.class);
 
+
+
+
                 runOnUiThread(() -> {
                     textViewQuestion.setText(question.getQuestion());
                     button1.setText(question.getOptions().get(0));
                     button2.setText(question.getOptions().get(1));
                     button3.setText(question.getOptions().get(2));
 
+                    button1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(question.getCorrect()==0){
+                                button1.setBackgroundColor(Color.GREEN);
+                            } else {
+                                button1.setBackgroundColor(Color.RED);
+                            }
+                        }
+                    });
+                    button2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(question.getCorrect()==1){
+                                button2.setBackgroundColor(Color.GREEN);
+                            } else {
+                                button2.setBackgroundColor(Color.RED);
+                            }
+                        }
+                    });
+                    button3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(question.getCorrect()==2){
+                                button3.setBackgroundColor(Color.GREEN);
+                            } else {
+                                button3.setBackgroundColor(Color.RED);
+                            }
+                        }
+                    });
+
+                    nextQuestion.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            button1.setBackgroundColor(Color.parseColor("#6A4DAD"));
+                            button2.setBackgroundColor(Color.parseColor("#6A4DAD"));
+                            button3.setBackgroundColor(Color.parseColor("#6A4DAD"));
+
+                            loadQuestion();
+                        }
+                    });
 
                 });
 
@@ -68,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         }).start();
 
-        //////////////////////////////------------------
-
     }
+
+
 }
