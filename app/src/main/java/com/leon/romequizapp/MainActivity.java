@@ -1,5 +1,7 @@
 package com.leon.romequizapp;
 
+import static java.util.logging.Logger.global;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.CollapsibleActionView;
@@ -23,6 +25,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int points = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Button button2 = findViewById(R.id.buttonOption2);
         Button button3 = findViewById(R.id.buttonOption3);
         Button nextQuestion = findViewById(R.id.buttonNextQuestion);
+        TextView pointsTV = findViewById(R.id.points);
+
 
 
 
@@ -72,13 +78,18 @@ public class MainActivity extends AppCompatActivity {
                     button2.setText(question.getOptions().get(1));
                     button3.setText(question.getOptions().get(2));
 
+
                     button1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(question.getCorrect()==0){
                                 button1.setBackgroundColor(Color.GREEN);
+                                points++;
+                                pointsTV.setText(String.valueOf(points));
                             } else {
                                 button1.setBackgroundColor(Color.RED);
+                                points--;
+                                pointsTV.setText(String.valueOf(points));
                             }
                         }
                     });
@@ -87,8 +98,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if(question.getCorrect()==1){
                                 button2.setBackgroundColor(Color.GREEN);
+                                points++;
+                                pointsTV.setText(String.valueOf(points));
                             } else {
                                 button2.setBackgroundColor(Color.RED);
+                                points--;
+                                pointsTV.setText(String.valueOf(points));
                             }
                         }
                     });
@@ -97,8 +112,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if(question.getCorrect()==2){
                                 button3.setBackgroundColor(Color.GREEN);
+                                points++;
+                                pointsTV.setText(String.valueOf(points));
                             } else {
                                 button3.setBackgroundColor(Color.RED);
+                                points--;
+                                pointsTV.setText(String.valueOf(points));
                             }
                         }
                     });
